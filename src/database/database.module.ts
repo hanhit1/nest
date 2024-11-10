@@ -1,8 +1,14 @@
 import { Module, DynamicModule, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { OptionsProvider } from './providers/options.provider';
+import { connectionProvider } from './providers/provider.connection';
 @Global()
-@Module({})
+  @Module({
+    providers: [
+      connectionProvider,
+      OptionsProvider,
+    ],
+})
 export class DatabaseModule {
   static forRoot(entities = [], options?): DynamicModule {
     return {
@@ -16,7 +22,6 @@ export class DatabaseModule {
           password: options.password || '',
           database: options.database || 'test',
           entities: entities,
-          logging: true,
         }),
         TypeOrmModule.forFeature(entities),
       ],

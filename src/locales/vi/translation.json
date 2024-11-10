@@ -1,0 +1,6 @@
+{
+    "errors": {
+      "notFound": "Không tìm thấy tài nguyên",
+      "forbidden": "Truy cập bị từ chối"
+    }
+}

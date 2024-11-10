@@ -1,7 +1,10 @@
-import { Controller, Get, Req, Res, Post, Body, Query, Param ,Put, Delete} from "@nestjs/common";
+import { Controller, Get, Req, Res, Post, Body, Query, Param ,Put, Delete, NotFoundException} from "@nestjs/common";
 import { UsersService } from "./user.service";
 import { createUser } from "./dto/create-user.dto"
-import { updateUser } from "./dto/updete-user.dto";
+import { updateUser } from "./dto/update-user.dto";
+import { ParseIntPipe } from "src/pipes/ParseIntPipe";
+import { User } from "src/common/decorators/user.decorator";
+import { log } from "console";
 @Controller('user')
 export class UsersController{
     constructor(private readonly usersService: UsersService) { }
@@ -14,15 +17,17 @@ export class UsersController{
         this.usersService.create(user)
     }
     @Get(':id')
-    getById(@Param('id') id: number) {
+    getById(@Param('id',ParseIntPipe) id: number) {
     return this.usersService.getById(id);
     }
     @Put(':id')
-    updateUser(@Param() id: number, @Body() user: updateUser) {
-        this.usersService.update(id, user); 
+    async updateUser(@Param() id: number, @Body() user: updateUser) {
+        const ref: boolean = await this.usersService.update(id, user);
+        if (ref == false) throw new NotFoundException('notFound');
     }
     @Delete(':id')
-    deleteUser(@Param() id : number) {
+    deleteUser(@Param() id: number, @User('name') curentUser: string) {
+        console.log(curentUser);
         this.usersService.delete(id);
     }
 }
