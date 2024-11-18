@@ -5,9 +5,9 @@ export class FileEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ length: 255 })
   fileName: string;
 
-  @Column()
+  @Column({ length: 255 })
   fileUrl: string;
 }

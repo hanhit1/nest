@@ -7,7 +7,7 @@ export class UploadS3Service {
 
   constructor() {
     this.s3Client = new S3Client({
-      region: process.env.AWS_REGION, // Vùng AWS (vd: us-east-1)
+      region: process.env.AWS_REGION, 
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY,
         secretAccessKey: process.env.AWS_SECRET_KEY,

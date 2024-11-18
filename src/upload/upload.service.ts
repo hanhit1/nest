@@ -8,8 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UploadService { 
     constructor(
         private readonly uploadFactory: UploadFactory,
-        @InjectRepository(FileEntity)
-        private readonly fileRepository: Repository<FileEntity>,
+        @InjectRepository(FileEntity)  private readonly fileRepository: Repository<FileEntity>,
     ) { }
     async handleUpload(file: Express.Multer.File): Promise<any> {
         try {
@@ -19,7 +18,12 @@ export class UploadService {
                 fileName: file.originalname,
                 fileUrl: uploadResult.url,
             });
-            await this.fileRepository.save(newFile);
+            try {
+                await this.fileRepository.save(newFile);
+            } catch (error)
+            {
+                console.log(error)
+            }
             return { success: true, ...uploadResult };
         } catch (error) {
             return { success: false, message: error.message };
