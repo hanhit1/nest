@@ -4,7 +4,6 @@ import { createUser } from "./dto/create-user.dto"
 import { updateUser } from "./dto/update-user.dto";
 import { ParseIntPipe } from "src/pipes/ParseIntPipe";
 import { User } from "src/common/decorators/user.decorator";
-import { log } from "console";
 @Controller('user')
 export class UsersController{
     constructor(private readonly usersService: UsersService) { }
