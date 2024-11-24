@@ -1,0 +1,109 @@
+1. BadRequestException (HTTP 400)
+Dữ liệu đầu vào không hợp lệ hoặc request không đúng định dạng.
+Ví dụ:
+throw new BadRequestException('Invalid input data');
+Response:
+{
+  "statusCode": 400,
+  "message": "Invalid input data",
+  "error": "Bad Request"
+}
+2. UnauthorizedException (HTTP 401)
+Client không có quyền truy cập (chưa đăng nhập hoặc token không hợp lệ).
+Ví dụ:
+throw new UnauthorizedException('Access token is invalid');
+Response:
+{
+  "statusCode": 401,
+  "message": "Access token is invalid",
+  "error": "Unauthorized"
+}
+3. NotFoundException (HTTP 404)
+Tài nguyên yêu cầu không tồn tại.
+Ví dụ:
+throw new NotFoundException('User not found');
+Response:
+{
+  "statusCode": 404,
+  "message": "User not found",
+  "error": "Not Found"
+}
+4. ForbiddenException (HTTP 403)
+Client đã xác thực nhưng không có quyền thực hiện hành động.
+Ví dụ:
+throw new ForbiddenException('You do not have permission to access this resource');
+Response:
+{
+  "statusCode": 403,
+  "message": "You do not have permission to access this resource",
+  "error": "Forbidden"
+}
+5. NotAcceptableException (HTTP 406)
+Server không thể trả về định dạng dữ liệu mà client yêu cầu.
+Ví dụ:
+throw new NotAcceptableException('Requested format is not supported');
+Response:
+{
+  "statusCode": 406,
+  "message": "Requested format is not supported",
+  "error": "Not Acceptable"
+}
+6. RequestTimeoutException (HTTP 408)
+Request mất quá nhiều thời gian để hoàn thành.
+Ví dụ:
+throw new RequestTimeoutException('Request timeout');
+Response:
+{
+  "statusCode": 408,
+  "message": "Request timeout",
+  "error": "Request Timeout"
+}
+7. ConflictException (HTTP 409)
+Dữ liệu bị xung đột (vd: thêm tài khoản đã tồn tại).
+Ví dụ:
+throw new ConflictException('User already exists');
+Response:
+{
+  "statusCode": 409,
+  "message": "User already exists",
+  "error": "Conflict"
+}
+8. InternalServerErrorException (HTTP 500)
+Lỗi nội bộ server không rõ nguyên nhân.
+Ví dụ:
+throw new InternalServerErrorException('Something went wrong');
+Response:
+{
+  "statusCode": 500,
+  "message": "Something went wrong",
+  "error": "Internal Server Error"
+}
+9. NotImplementedException (HTTP 501)
+API chưa được triển khai.
+Ví dụ:
+throw new NotImplementedException('Feature not implemented yet');
+Response:
+{
+  "statusCode": 501,
+  "message": "Feature not implemented yet",
+  "error": "Not Implemented"
+}
+10. BadGatewayException (HTTP 502)
+Server nhận phản hồi không hợp lệ từ upstream server.
+throw new BadGatewayException('Invalid response from upstream server');
+Response:
+{
+  "statusCode": 502,
+  "message": "Invalid response from upstream server",
+  "error": "Bad Gateway"
+}
+11. GatewayTimeoutException (HTTP 504)
+Server upstream không phản hồi kịp thời.
+Ví dụ:
+throw new GatewayTimeoutException('Gateway timeout');
+Response:
+{
+  "statusCode": 504,
+  "message": "Gateway timeout",
+  "error": "Gateway Timeout"
+}

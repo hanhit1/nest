@@ -1,0 +1,153 @@
+# Overview
+-   Get details of an order by ID
+-   Get a list of orders with pagination
+-   Create, update, or delete an order
+# API Contract
+
+## getOrder 
+- URL: https://localhost:3000/api/orders/{id}
+- Method: GET
+- Request parameter: 
+  - Path Parameter: 
+    - id: The ID of the order to retrieve (e.g., 123)
+- Response: 
+"Success": {
+  "data": {
+    "id": 123,
+    "customerName": "Hanh",
+    "items": [
+      {"productId": 1, "quantity": 2},
+      {"productId": 2, "quantity": 1}
+    ],
+    "totalPrice": 500,
+    "status": "Processing"
+  },
+  "code": 200
+}
+"Error": {
+    "code": 404,
+    "message": "Order not found"
+    }
+
+## getOrders 
+- URL: https://localhost:3000/api/orders
+- Method: GET
+- Request parameter: 
+  - Query Parameters: 
+    - limit: The number of orders to retrieve per page (optional, default is 10)
+    - page: The page number to retrieve (optional, default is 1)
+- Response: 
+"Success": {
+  "data": [
+    {
+      "id": 123,
+      "customerName": "Hanh",
+      "items": [
+        {"productId": 1, "quantity": 2},
+        {"productId": 2, "quantity": 1}
+      ],
+      "totalPrice": 500,
+      "status": "Processing"
+    },
+    {
+      "id": 124,
+      "customerName": "Long",
+      "items": [
+        {"productId": 3, "quantity": 1},
+        {"productId": 4, "quantity": 4}
+      ],
+      "totalPrice": 700,
+      "status": "Completed"
+    }
+  ],
+  "pagination": {
+    "total": 2,
+    "currentPage": 1,
+    "totalPages": 1
+  },
+  "code": 200
+}
+
+## updateOrder 
+- URL: https://localhost:3000/api/orders/{id}
+- Method: PUT
+- Request parameter: 
+  - Path Parameter: 
+    - id: The ID of the order to update (e.g., 123). 
+- Request body:
+    {
+        status: "Completed"
+    }
+- Response: 
+"Success": {
+  "data": {
+    "id": 123,
+    "customerName": "Hanh",
+    "items": [
+      {"productId": 1, "quantity": 2},
+      {"productId": 2, "quantity": 1}
+    ],
+    "totalPrice": 500,
+    "status": "Completed"
+  },
+  "code": 200
+}
+"Error": {
+    "code": 404,
+    "message": "Order not found"
+    }
+
+## createOrder 
+- URL: https://localhost:3000/api/orders
+- Method: POST
+
+- Request body:
+    {
+    "customerName": "Hanh",
+    "items": [
+      {"productId": 1, "quantity": 2},
+      {"productId": 2, "quantity": 1}
+    ],
+    "totalPrice": 500,
+    "status": "Pending"  
+    }
+- Response: 
+"Success": { 
+  "data": {
+    "id": 123,
+    "customerName": "Hanh",
+    "items": [
+      {"productId": 1, "quantity": 2},
+      {"productId": 2, "quantity": 1}
+    ],
+    "totalPrice": 500,
+    "status": "Pending"
+  },
+  "code": 201
+}
+
+## deleteOrder 
+- URL: https://localhost:3000/api/orders/{id}
+- Method: DELETE
+- Request parameter: 
+  - Path Parameter: 
+    - id: The ID of the order to delete (e.g., 123). 
+- Response: 
+"Success": {
+  "status": "deleted successfully"
+  "data": {
+    "id": 123,
+    "customerName": "Hanh",
+    "items": [
+      {"productId": 1, "quantity": 2},
+      {"productId": 2, "quantity": 1}
+    ],
+    "totalPrice": 500,
+    "status": "Completed"
+  },
+  "code": 200
+}
+"Error": {
+    "code": 404,
+    "message": "Order not found"
+}

@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, Post, Body, Query, Param ,Put, Delete, NotFoundException} from "@nestjs/common";
+import { Controller, Get, Req, Res, Post, Body, Query, Param ,Put, Delete, NotFoundException, ValidationPipe} from "@nestjs/common";
 import { UsersService } from "./user.service";
 import { createUser } from "./dto/create-user.dto"
 import { updateUser } from "./dto/update-user.dto";
@@ -12,7 +12,7 @@ export class UsersController{
         return this.usersService.getAll()
     }
     @Post()
-    create(@Body() user: createUser) {
+    create(@Body(new ValidationPipe()) user: createUser) {
         this.usersService.create(user)
     }
     @Get(':id')
@@ -20,7 +20,7 @@ export class UsersController{
     return this.usersService.getById(id);
     }
     @Put(':id')
-    async updateUser(@Param() id: number, @Body() user: updateUser) {
+    async updateUser(@Param() id: number, @Body(new ValidationPipe()) user: updateUser) {
         const ref: boolean = await this.usersService.update(id, user);
         if (ref == false) throw new NotFoundException('notFound');
     }
